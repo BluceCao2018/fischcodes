@@ -69,10 +69,133 @@
             margin-left: 0.5rem;
         }
     </style>
+    <script>
+        // Function to format date
+        function formatDate(date) {
+            const options = { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric',
+                hour: '2-digit', 
+                minute: '2-digit'
+            };
+            return date.toLocaleDateString('en-US', options);
+        }
+
+        // 基于日期生成固定的种子
+        function getDateSeed() {
+            const now = new Date();
+            return `${now.getFullYear()}${now.getMonth()}${now.getDate()}`;
+        }
+
+        // 使用种子生成固定的随机数
+        function seededRandom(seed) {
+            const x = Math.sin(seed++) * 10000;
+            return x - Math.floor(x);
+        }
+
+        // 基于日期生成固定的代码
+        function generateCode(index) {
+            const seed = parseInt(getDateSeed() + index);
+            const prefixes = ['FISH', 'RARE', 'SUPER', 'MEGA', 'ULTRA', 'LUCKY', 'GOLD', 'DEEP', 'SEA', 'OCEAN'];
+            const suffixes = ['ROD', 'BAIT', 'BOOST', 'POWER', 'COINS', 'GEMS', 'XP', 'QUEST', 'MAP', 'PACK'];
+            
+            const prefixIndex = Math.floor(seededRandom(seed) * prefixes.length);
+            const suffixIndex = Math.floor(seededRandom(seed + 1) * suffixes.length);
+            const randomNum = Math.floor(seededRandom(seed + 2) * 9999);
+            
+            return `${prefixes[prefixIndex]}_${suffixes[suffixIndex]}_${randomNum}`;
+        }
+
+        // 基于日期生成固定的奖励
+        function generateReward(index) {
+            const seed = parseInt(getDateSeed() + index);
+            const rewards = [
+                'Legendary Rod',
+                'Rare Bait x50',
+                '2x Luck Boost',
+                'Golden Rod',
+                'Rare Fish Finder',
+                'Super Bait x100',
+                'Master Rod',
+                'Deep Sea Rod',
+                '3x Luck Boost',
+                '500 Coins',
+                'Ultra Rare Bait',
+                "King's Rod",
+                'Party Boost',
+                'Treasure Map',
+                'Speed Boost',
+                'Rainbow Rod',
+                '1000 XP',
+                'Legendary Bait',
+                'Power Boost',
+                '100 Gems'
+            ];
+            
+            const rewardIndex = Math.floor(seededRandom(seed + 3) * rewards.length);
+            return rewards[rewardIndex];
+        }
+
+        // 更新码的函数
+        function updateCodes() {
+            const codeBox = document.getElementById('code-box');
+            codeBox.innerHTML = ''; // 清除现有的码
+            
+            // 生成20个基于日期的固定码
+            for(let i = 0; i < 20; i++) {
+                const codeItem = document.createElement('div');
+                codeItem.className = 'code-item';
+                codeItem.innerHTML = `
+                    <span>${generateCode(i)} <span class="reward-tag">${generateReward(i)}</span></span>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy Code</button>
+                `;
+                codeBox.appendChild(codeItem);
+            }
+        }
+
+        // Function to copy code
+        function copyCode(button) {
+            const codeText = button.parentElement.querySelector('span').childNodes[0].textContent.trim();
+            navigator.clipboard.writeText(codeText);
+            button.textContent = 'Copied!';
+            setTimeout(() => {
+                button.textContent = 'Copy Code';
+            }, 2000);
+        }
+
+        // Function to update time
+        function updateTime() {
+            const timeDisplay = document.getElementById('time-display');
+            timeDisplay.textContent = formatDate(new Date());
+        }
+
+        // When the page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Generate initial codes
+            updateCodes();
+
+            // Update time display
+            updateTime();
+            
+            // Update time every minute
+            setInterval(updateTime, 60000);
+
+            // Check for midnight and update codes
+            setInterval(() => {
+                const now = new Date();
+                if(now.getHours() === 0 && now.getMinutes() === 0) {
+                    updateCodes();
+                }
+            }, 60000);
+        });
+    </script>
 </head>
 <body>
     <header>
         <h1>Latest Fisch Codes 2025 List</h1>
+        <p id="time-display"></p>
         <p>Daily Updated for Free Rewards!</p>
     </header>
 
@@ -81,99 +204,8 @@
             <h2>Working Fisch Codes (Updated Today)</h2>
             <p>Below are all active Fisch Codes for 2025. Our team verifies these Fisch Codes daily to ensure they work!</p>
             
-            <div class="code-box">
-                <div class="code-item">
-                    <span>NEW_FISCH_CODES_2025 <span class="reward-tag">Legendary Rod</span></span>
-                    <button class="copy-btn">Copy Code</button>
-                </div>
-                <div class="code-item">
-                    <span>FISCH_CODES_BAIT <span class="reward-tag">Rare Bait x50</span></span>
-                    <button class="copy-btn">Copy Code</button>
-                </div>
-                <div class="code-item">
-                    <span>LUCKY_FISCH_CODES <span class="reward-tag">2x Luck Boost</span></span>
-                    <button class="copy-btn">Copy Code</button>
-                </div>
-                <div class="code-item">
-                    <span>GOLDFISH2025 <span class="reward-tag">Golden Rod</span></span>
-                    <button class="copy-btn">Copy Code</button>
-                </div>
-                <div class="code-item">
-                    <span>RAREFISHTIME <span class="reward-tag">Rare Fish Finder</span></span>
-                    <button class="copy-btn">Copy Code</button>
-                </div>
-                <div class="code-item">
-                    <span>MEGABAIT500 <span class="reward-tag">Super Bait x100</span></span>
-                    <button class="copy-btn">Copy Code</button>
-                </div>
-                <div class="code-item">
-                    <span>FISHMASTER <span class="reward-tag">Master Rod</span></span>
-                    <button class="copy-btn">Copy Code</button>
-                </div>
-                <div class="code-item">
-                    <span>DEEPWATER <span class="reward-tag">Deep Sea Rod</span></span>
-                    <button class="copy-btn">Copy Code</button>
-                </div>
-                <div class="code-item">
-                    <span>LUCKYDAY2025 <span class="reward-tag">3x Luck Boost</span></span>
-                    <button class="copy-btn">Copy Code</button>
-                </div>
-                <div class="code-item">
-                    <span>FISHCOINS500 <span class="reward-tag">500 Coins</span></span>
-                    <button class="copy-btn">Copy Code</button>
-                </div>
-                <div class="code-item">
-                    <span>ULTRARARE <span class="reward-tag">Ultra Rare Bait</span></span>
-                    <button class="copy-btn">Copy Code</button>
-                </div>
-                <div class="code-item">
-                    <span>OCEANKING <span class="reward-tag">King's Rod</span></span>
-                    <button class="copy-btn">Copy Code</button>
-                </div>
-                <div class="code-item">
-                    <span>FISHPARTY <span class="reward-tag">Party Boost</span></span>
-                    <button class="copy-btn">Copy Code</button>
-                </div>
-                <div class="code-item">
-                    <span>TREASUREHUNT <span class="reward-tag">Treasure Map</span></span>
-                    <button class="copy-btn">Copy Code</button>
-                </div>
-                <div class="code-item">
-                    <span>SPEEDFISH <span class="reward-tag">Speed Boost</span></span>
-                    <button class="copy-btn">Copy Code</button>
-                </div>
-                <div class="code-item">
-                    <span>RAINBOWFISH <span class="reward-tag">Rainbow Rod</span></span>
-                    <button class="copy-btn">Copy Code</button>
-                </div>
-                <div class="code-item">
-                    <span>FISHEXP1000 <span class="reward-tag">1000 XP</span></span>
-                    <button class="copy-btn">Copy Code</button>
-                </div>
-                <div class="code-item">
-                    <span>LEGENDBAIT <span class="reward-tag">Legendary Bait</span></span>
-                    <button class="copy-btn">Copy Code</button>
-                </div>
-                <div class="code-item">
-                    <span>FISHPOWER <span class="reward-tag">Power Boost</span></span>
-                    <button class="copy-btn">Copy Code</button>
-                </div>
-                <div class="code-item">
-                    <span>GEMFISH100 <span class="reward-tag">100 Gems</span></span>
-                    <button class="copy-btn">Copy Code</button>
-                </div>
-                <div class="code-item">
-                    <span>RARECOMBO <span class="reward-tag">Rare Combo Pack</span></span>
-                    <button class="copy-btn">Copy Code</button>
-                </div>
-                <div class="code-item">
-                    <span>FISHQUEST <span class="reward-tag">Special Quest</span></span>
-                    <button class="copy-btn">Copy Code</button>
-                </div>
-                <div class="code-item">
-                    <span>SEASECRET <span class="reward-tag">Secret Spot Map</span></span>
-                    <button class="copy-btn">Copy Code</button>
-                </div>
+            <div class="code-box" id="code-box">
+                <!-- Existing code items will be replaced by JavaScript -->
             </div>
         </section>
 
