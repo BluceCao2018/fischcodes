@@ -1,0 +1,132 @@
+/* 基础样式 */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f8ff;
+}
+
+/* 头部样式 */
+header {
+    background-color: #2c3e50;
+    color: white;
+    text-align: center;
+    padding: 2rem 0;
+    position: relative;
+}
+
+/* 网站图标样式 */
+.site-logo {
+    font-family: 'Arial', sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+    position: absolute;
+    left: 20px;
+    top: 20px;
+}
+
+.site-logo .domain {
+    color: #17b978;
+}
+
+.site-logo .uk {
+    background: #ff6b6b;
+    color: white;
+    padding: 2px 5px;
+    border-radius: 4px;
+    margin-left: 2px;
+}
+
+/* 容器样式 */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* 导航样式 */
+nav {
+    margin: 15px 0;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 10px;
+    padding: 5px;
+    transition: color 0.3s ease;
+}
+
+nav a:hover {
+    color: #17b978;
+}
+
+/* 标题样式 */
+h1 {
+    margin-top: 40px;
+}
+
+h2 {
+    color: #2c3e50;
+    margin: 1.5rem 0;
+}
+
+h3 {
+    color: #2c3e50;
+    margin: 20px 0 10px 0;
+}
+
+/* 页脚样式 */
+footer {
+    background-color: #2c3e50;
+    color: white;
+    text-align: center;
+    padding: 1rem 0;
+    margin-top: 2rem;
+}
+
+footer nav a {
+    color: white;
+    margin: 0 10px;
+    text-decoration: none;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .site-logo {
+        position: relative;
+        left: 0;
+        top: 0;
+        margin-bottom: 20px;
+        display: inline-block;
+    }
+
+    header h1 {
+        margin-top: 10px;
+    }
+
+    .container {
+        padding: 1rem;
+    }
+}
+
+/* 通用卡片样式 */
+.card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 1.5rem;
+}
+
+/* 列表样式 */
+ul, ol {
+    padding-left: 20px;
+}
+
+li {
+    margin-bottom: 0.5rem;
+} 
