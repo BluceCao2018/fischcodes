@@ -138,18 +138,6 @@
             return x - Math.floor(x);
         }
 
-        // 基于日期生成固定的代码
-        function generateCode(index) {
-            const seed = parseInt(getDateSeed() + index);
-            const prefixes = ['FISH', 'RARE', 'SUPER', 'MEGA', 'ULTRA', 'LUCKY', 'GOLD', 'DEEP', 'SEA', 'OCEAN'];
-            const suffixes = ['ROD', 'BAIT', 'BOOST', 'POWER', 'COINS', 'GEMS', 'XP', 'QUEST', 'MAP', 'PACK'];
-            
-            const prefixIndex = Math.floor(seededRandom(seed) * prefixes.length);
-            const suffixIndex = Math.floor(seededRandom(seed + 1) * suffixes.length);
-            const randomNum = Math.floor(seededRandom(seed + 2) * 9999);
-            
-            return `${prefixes[prefixIndex]}_${suffixes[suffixIndex]}_${randomNum}`;
-        }
 
         // 基于日期生成固定的奖励
         function generateReward(index) {
@@ -184,132 +172,156 @@
         // 定义有效代码列表
         const activeCodes = [
             {
-                code: "the depths",
-                validFrom: "2024-11-01",
-                validUntil: "2024-11-16",
-                rewards: "3x weird algae bait, 3x truffle worm bait"
+                code: "RFG",
+                validFrom: "December 7, 2024",
+                validUntil: "-",
+                rewards: "3x Instant Catcher Bait, 2,500C$"
             },
             {
-                code: "100m",
-                validFrom: "2024-11-01",
-                validUntil: "2024-11-09",
-                rewards: "2x weird algae bait, 2x truffle worm bait, 1,500 c$"
+                code: "NorthernExpedition",
+                validFrom: "December 21, 2024",
+                validUntil: "-",
+                rewards: "2x Holly Berry Bait, 3x Peppermint Worm Bait, 1,000C$"
             },
             {
-                code: "thank you followers 2",
-                validFrom: "2024-12-01",
-                validUntil: "2024-12-31",
-                rewards: "5 holly berries, 5 peppermint worms, 2 aurora baits and astral rod"
+                code: "1BVisits",
+                validFrom: "December 25, 2024",
+                validUntil: "-",
+                rewards: "Party Popper Bobber, '1B' Title, 1x Aurora Bait, 1,111C$, 10x Fireworks"
             },
             {
-                code: "merry fisch mas",
-                validFrom: "2024-12-01",
-                validUntil: "2024-12-31",
-                rewards: "1 holly berry and 1 peppermint worm"
+                code: "NewYear",
+                validFrom: "December 28, 2024",
+                validUntil: "-",
+                rewards: "2x Holly Berry Bait, 2x Peppermint Worm Bait, 1,000C$"
             },
             {
-                code: "advent",
-                validFrom: "2024-12-01",
-                validUntil: "2024-12-31",
-                rewards: "2 weird algae and 2 truffle worms"
-            },
-            {
-                code: "thankyou followers",
-                validFrom: "2024-12-01",
-                validUntil: "2024-12-31",
-                rewards: "2k credits, 2 weird algae, and 2 truffle worms"
-            },
-            {
-                code: "ancientisle",
-                validFrom: "2024-12-01",
-                validUntil: "2024-12-31",
-                rewards: "2 weird algae and 2 truffle worms"
-            },
-            {
-                code: "prehistoric",
-                validFrom: "2024-12-01",
-                validUntil: "2024-12-31",
-                rewards: "2 weird algae and 2 truffle worms"
+                code: "GOODBYEFISCHMAS",
+                validFrom: "January 2, 2025",
+                validUntil: "-",
+                rewards: "10x Unsellable Coral Geodes, 1x Aurora Bait, 3,000C$"
             }
         ];
 
         // 定义失效代码列表
         const expiredCodes = [
             {
-                code: "fisch fright 2024",
-                validFrom: "2024-10-20",
-                validUntil: "2024-11-03",
-                rewards: "candy corn bobber, 2,024 c$"
+                code: "HeadStart",
+                validFrom: "November 30, 2024",
+                validUntil: "December 7, 2024",
+                rewards: "5x Instant Catcher Bait, 2,500C$"
             },
             {
-                code: "sorry for shutdown",
-                validFrom: "2024-10-20",
-                validUntil: "2024-10-21",
-                rewards: "15x unsellable volcanic geodes"
+                code: "AncientIsle",
+                validFrom: "November 30, 2024",
+                validUntil: "December 7, 2024",
+                rewards: "2x Weird Algae Bait, 2x Truffle Worm Bait, 1,500C$"
             },
             {
-                code: "thanks for 10 mil",
-                validFrom: "2024-10-21",
-                validUntil: "2024-10-27",
-                rewards: '"10 mil" title, 10,000 c$, 60 minutes of lure iv'
+                code: "TheDepths",
+                validFrom: "November 16, 2024",
+                validUntil: "December 7, 2024",
+                rewards: "3x Weird Algae Bait, 3x Truffle Worm Bait"
             },
             {
-                code: "sorry for downtime",
-                validFrom: "2024-11-05",
-                validUntil: "2024-11-09",
-                rewards: "10x instant catcher bait, 10x fish head bait, 1,500 c$"
+                code: "ThankYouFollowers",
+                validFrom: "November 23, 2024",
+                validUntil: "December 7, 2024",
+                rewards: "2x Weird Algae Bait, 2x Truffle Worm Bait, 2,000C$"
             },
             {
-                code: "scuba aaa",
-                validFrom: "2024-10-30",
-                validUntil: "2024-11-16",
-                rewards: "5x unsellable coral geodes"
+                code: "FischFright2024",
+                validFrom: "October 20, 2024",
+                validUntil: "November 3, 2024",
+                rewards: "Candy Corn Bobber, 2,024C$"
             },
             {
-                code: "200 k",
-                validFrom: "2024-11-09",
-                validUntil: "2024-11-16",
-                rewards: "5x weird algae bait, 5x truffle worm bait"
+                code: "SorryforShutdown",
+                validFrom: "October 20, 2024",
+                validUntil: "October 21, 2024",
+                rewards: "15x Unsellable Volcanic Geodes"
+            },
+            {
+                code: "ThanksFor10Mil",
+                validFrom: "October 21, 2024",
+                validUntil: "October 27, 2024",
+                rewards: '"10Mil" Title, 10,000C$, 60 minutes of Lure IV'
+            },
+            {
+                code: "SorryForDowntime",
+                validFrom: "November 5, 2024",
+                validUntil: "November 9, 2024",
+                rewards: "10x Instant Catcher Bait, 10x Fish Head Bait, 1,500C$"
+            },
+            {
+                code: "Scubaaaa",
+                validFrom: "October 30, 2024",
+                validUntil: "November 16, 2024",
+                rewards: "5x Unsellable Coral Geodes"
+            },
+            {
+                code: "200K",
+                validFrom: "November 9, 2024",
+                validUntil: "November 16, 2024",
+                rewards: "5x Weird Algae Bait, 5x Truffle Worm Bait"
+            },
+            {
+                code: "100M",
+                validFrom: "November 9, 2024",
+                validUntil: "November 23, 2024",
+                rewards: "2x Weird Algae Bait, 2x Truffle Worm Bait, 1,500C$"
+            },
+            {
+                code: "Prehistoric",
+                validFrom: "November 23, 2024",
+                validUntil: "November 30, 2024",
+                rewards: "2x Weird Algae Bait, 2x Truffle Worm Bait, 1,500C$"
+            },
+            {
+                code: "Advent",
+                validFrom: "December 7, 2024",
+                validUntil: "December 14, 2024",
+                rewards: "5x Peppermint Worm Bait, 5x Holly Berry Bait, 5x Aurora Bait Bait, 2x Weird Algae Bait, 2x Truffle Worm Bait, 1,500C$"
+            },
+            {
+                code: "ThankYouFollowers2",
+                validFrom: "December 14, 2024",
+                validUntil: "December 15, 2024",
+                rewards: "5x Holly Berry Bait, 5x Peppermint Worm Bait, 2x Aurora Bait Bait, 5x Unsellable Unique Presents, Astral Rod"
+            },
+            {
+                code: "ThankYouFollowers3",
+                validFrom: "December 17, 2024",
+                validUntil: "December 18, 2024",
+                rewards: "Event Horizon Rod"
+            },
+            {
+                code: "MERRYFISCHMAS",
+                validFrom: "December 14, 2024",
+                validUntil: "January 2, 2025",
+                rewards: "1x Holly Berry Bait, 1x Peppermint Worm Bait, 500C$"
+            },
+            {
+                code: "FISCHMASDAY",
+                validFrom: "December 25, 2024",
+                validUntil: "January 2, 2025",
+                rewards: "2x Holly Berry Bait, 2x Peppermint Worm Bait, 1,000C$"
             }
         ];
 
-        // 判断代码是否已过期
-        function isExpired(validUntil) {
-            const now = new Date();
-            const expiryDate = new Date(validUntil);
-            return now > expiryDate;
-        }
-
-        // 更新码的函数
+        // 更新码的函数 - 移除自动判断逻辑
         function updateCodes() {
             const codeBox = document.getElementById('code-box');
             codeBox.innerHTML = '';
             
-            // 合并所有代码并根据有效期分类
-            const allCodes = [...activeCodes, ...expiredCodes];
-            const currentActiveCodes = [];
-            const currentExpiredCodes = [];
-
-            allCodes.forEach(code => {
-                if (isExpired(code.validUntil)) {
-                    currentExpiredCodes.push(code);
-                } else {
-                    currentActiveCodes.push(code);
-                }
-            });
-
-            // 按日期排序（有效代码按失效日期升序，过期代码按失效日期降序）
-            currentActiveCodes.sort((a, b) => new Date(a.validUntil) - new Date(b.validUntil));
-            currentExpiredCodes.sort((a, b) => new Date(b.validUntil) - new Date(a.validUntil));
-            
             // 添加有效代码标题
             const activeTitle = document.createElement('h3');
-            activeTitle.textContent = 'Active Codes';
+            activeTitle.textContent = 'Active Fisch Codes';
             activeTitle.style.marginTop = '20px';
             codeBox.appendChild(activeTitle);
             
             // 添加有效代码
-            currentActiveCodes.forEach(codeData => {
+            activeCodes.forEach(codeData => {
                 const codeItem = document.createElement('div');
                 codeItem.className = 'code-item';
                 codeItem.innerHTML = `
@@ -327,12 +339,12 @@
 
             // 添加失效代码标题
             const expiredTitle = document.createElement('h3');
-            expiredTitle.textContent = 'Expired Codes';
+            expiredTitle.textContent = 'Inactive Fisch Codes';
             expiredTitle.style.marginTop = '20px';
             codeBox.appendChild(expiredTitle);
             
             // 添加失效代码
-            currentExpiredCodes.forEach(codeData => {
+            expiredCodes.forEach(codeData => {
                 const codeItem = document.createElement('div');
                 codeItem.className = 'code-item expired';
                 codeItem.innerHTML = `
@@ -350,7 +362,7 @@
             // 更新代码数量显示
             const activeCount = document.getElementById('active-count');
             if (activeCount) {
-                activeCount.textContent = `(${currentActiveCodes.length} active)`;
+                activeCount.textContent = `(${activeCodes.length} active Fisch Codes)`;
             }
         }
 
@@ -366,8 +378,8 @@
 
         // Function to update time
         function updateTime() {
-            const timeDisplay = document.getElementById('time-display');
-            timeDisplay.textContent = formatDate(new Date());
+            // const timeDisplay = document.getElementById('time-display');
+            // timeDisplay.textContent = formatDate(new Date());
         }
 
         // When the page loads
@@ -395,7 +407,7 @@
     <header>
         <h1>Latest Fisch Codes 2025 List</h1>
         <p id="time-display"></p>
-        <p>Daily Updated for Free Rewards!</p>
+        <p>Daily Updated Fisch Codes for Free Rewards!</p>
     </header>
 
     <div class="container">
@@ -432,21 +444,21 @@
 
             <div class="service-card">
                 <h3>Latest Fisch Codes Tips</h3>
-                <p>Use today's Fisch Codes to maximize your fishing rewards. New Codes appear regularly, so check back often!</p>
+                <p>Use today's Fisch Codes to maximize your fishing rewards. New Fisch Codes appear regularly, so check back often!</p>
             </div>
         </section>
 
         <section>
             <h2>Benefits of Our Fisch Codes</h2>
             <ul>
-                <li>Fresh  daily</li>
-                <li>Verified working</li>
+                <li>Fresh Fisch Codes daily</li>
+                <li>Verified working Fisch Codes</li>
                 <li>Exclusive premium rewards</li>
             </ul>
         </section>
 
         <section>
-            <h2>Stay Updated !</h2>
+            <h2>Stay Updated for New Fisch Codes!</h2>
             <p>Bookmark our page for the latest Fisch Codes. </p>
         </section>
     </div>
