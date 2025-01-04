@@ -59,6 +59,14 @@
             padding: 0.5rem 1rem;
             border-radius: 4px;
             cursor: pointer;
+            font-size: 0;
+        }
+        .copy-btn::before {
+            content: "Copy Code";
+            font-size: 1rem;
+        }
+        .copy-btn.copied::before {
+            content: "Copied!";
         }
         .reward-tag {
             background: #e74c3c;
@@ -141,15 +149,14 @@
         // 更新码的函数
         function updateCodes() {
             const codeBox = document.getElementById('code-box');
-            codeBox.innerHTML = ''; // 清除现有的码
+            codeBox.innerHTML = '';
             
-            // 生成20个基于日期的固定码
             for(let i = 0; i < 20; i++) {
                 const codeItem = document.createElement('div');
                 codeItem.className = 'code-item';
                 codeItem.innerHTML = `
                     <span>${generateCode(i)} <span class="reward-tag">${generateReward(i)}</span></span>
-                    <button class="copy-btn" onclick="copyCode(this)">Copy Code</button>
+                    <button class="copy-btn" onclick="copyCode(this)"></button>
                 `;
                 codeBox.appendChild(codeItem);
             }
@@ -159,9 +166,9 @@
         function copyCode(button) {
             const codeText = button.parentElement.querySelector('span').childNodes[0].textContent.trim();
             navigator.clipboard.writeText(codeText);
-            button.textContent = 'Copied!';
+            button.classList.add('copied');
             setTimeout(() => {
-                button.textContent = 'Copy Code';
+                button.classList.remove('copied');
             }, 2000);
         }
 
