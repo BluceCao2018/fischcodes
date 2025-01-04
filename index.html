@@ -45,12 +45,12 @@
         }
         .code-item {
             background: white;
-            padding: 0.5rem;
-            margin: 0.5rem 0;
+            padding: 1rem;
+            margin: 0.8rem 0;
             border-radius: 4px;
             display: flex;
             justify-content: space-between;
-            align-items: center;
+            align-items: flex-start;
         }
         .copy-btn {
             background: #2c3e50;
@@ -75,6 +75,41 @@
             border-radius: 4px;
             font-size: 0.8rem;
             margin-left: 0.5rem;
+            display: inline-block;
+            margin-top: 0.3rem;
+        }
+        .expired {
+            opacity: 0.6;
+        }
+
+        .expired-date {
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        .reward-tag.expired {
+            background: #666;
+        }
+
+        h3 {
+            color: #2c3e50;
+            margin: 20px 0 10px 0;
+        }
+
+        .code-info {
+            flex-grow: 1;
+            margin-right: 1rem;
+        }
+
+        .code-text {
+            font-weight: bold;
+        }
+
+        .validity-period {
+            font-size: 0.8rem;
+            color: #666;
+            margin-top: 0.3rem;
+            white-space: nowrap;
         }
     </style>
     <script>
@@ -146,19 +181,176 @@
             return rewards[rewardIndex];
         }
 
+        // 定义有效代码列表
+        const activeCodes = [
+            {
+                code: "the depths",
+                validFrom: "2024-11-01",
+                validUntil: "2024-11-16",
+                rewards: "3x weird algae bait, 3x truffle worm bait"
+            },
+            {
+                code: "100m",
+                validFrom: "2024-11-01",
+                validUntil: "2024-11-09",
+                rewards: "2x weird algae bait, 2x truffle worm bait, 1,500 c$"
+            },
+            {
+                code: "thank you followers 2",
+                validFrom: "2024-12-01",
+                validUntil: "2024-12-31",
+                rewards: "5 holly berries, 5 peppermint worms, 2 aurora baits and astral rod"
+            },
+            {
+                code: "merry fisch mas",
+                validFrom: "2024-12-01",
+                validUntil: "2024-12-31",
+                rewards: "1 holly berry and 1 peppermint worm"
+            },
+            {
+                code: "advent",
+                validFrom: "2024-12-01",
+                validUntil: "2024-12-31",
+                rewards: "2 weird algae and 2 truffle worms"
+            },
+            {
+                code: "thankyou followers",
+                validFrom: "2024-12-01",
+                validUntil: "2024-12-31",
+                rewards: "2k credits, 2 weird algae, and 2 truffle worms"
+            },
+            {
+                code: "ancientisle",
+                validFrom: "2024-12-01",
+                validUntil: "2024-12-31",
+                rewards: "2 weird algae and 2 truffle worms"
+            },
+            {
+                code: "prehistoric",
+                validFrom: "2024-12-01",
+                validUntil: "2024-12-31",
+                rewards: "2 weird algae and 2 truffle worms"
+            }
+        ];
+
+        // 定义失效代码列表
+        const expiredCodes = [
+            {
+                code: "fisch fright 2024",
+                validFrom: "2024-10-20",
+                validUntil: "2024-11-03",
+                rewards: "candy corn bobber, 2,024 c$"
+            },
+            {
+                code: "sorry for shutdown",
+                validFrom: "2024-10-20",
+                validUntil: "2024-10-21",
+                rewards: "15x unsellable volcanic geodes"
+            },
+            {
+                code: "thanks for 10 mil",
+                validFrom: "2024-10-21",
+                validUntil: "2024-10-27",
+                rewards: '"10 mil" title, 10,000 c$, 60 minutes of lure iv'
+            },
+            {
+                code: "sorry for downtime",
+                validFrom: "2024-11-05",
+                validUntil: "2024-11-09",
+                rewards: "10x instant catcher bait, 10x fish head bait, 1,500 c$"
+            },
+            {
+                code: "scuba aaa",
+                validFrom: "2024-10-30",
+                validUntil: "2024-11-16",
+                rewards: "5x unsellable coral geodes"
+            },
+            {
+                code: "200 k",
+                validFrom: "2024-11-09",
+                validUntil: "2024-11-16",
+                rewards: "5x weird algae bait, 5x truffle worm bait"
+            }
+        ];
+
+        // 判断代码是否已过期
+        function isExpired(validUntil) {
+            const now = new Date();
+            const expiryDate = new Date(validUntil);
+            return now > expiryDate;
+        }
+
         // 更新码的函数
         function updateCodes() {
             const codeBox = document.getElementById('code-box');
             codeBox.innerHTML = '';
             
-            for(let i = 0; i < 20; i++) {
+            // 合并所有代码并根据有效期分类
+            const allCodes = [...activeCodes, ...expiredCodes];
+            const currentActiveCodes = [];
+            const currentExpiredCodes = [];
+
+            allCodes.forEach(code => {
+                if (isExpired(code.validUntil)) {
+                    currentExpiredCodes.push(code);
+                } else {
+                    currentActiveCodes.push(code);
+                }
+            });
+
+            // 按日期排序（有效代码按失效日期升序，过期代码按失效日期降序）
+            currentActiveCodes.sort((a, b) => new Date(a.validUntil) - new Date(b.validUntil));
+            currentExpiredCodes.sort((a, b) => new Date(b.validUntil) - new Date(a.validUntil));
+            
+            // 添加有效代码标题
+            const activeTitle = document.createElement('h3');
+            activeTitle.textContent = 'Active Codes';
+            activeTitle.style.marginTop = '20px';
+            codeBox.appendChild(activeTitle);
+            
+            // 添加有效代码
+            currentActiveCodes.forEach(codeData => {
                 const codeItem = document.createElement('div');
                 codeItem.className = 'code-item';
                 codeItem.innerHTML = `
-                    <span>${generateCode(i)} <span class="reward-tag">${generateReward(i)}</span></span>
+                    <div class="code-info">
+                        <span class="code-text">${codeData.code}</span>
+                        <span class="reward-tag">${codeData.rewards}</span>
+                        <div class="validity-period">
+                            ${codeData.validFrom} - ${codeData.validUntil}
+                        </div>
+                    </div>
                     <button class="copy-btn" onclick="copyCode(this)"></button>
                 `;
                 codeBox.appendChild(codeItem);
+            });
+
+            // 添加失效代码标题
+            const expiredTitle = document.createElement('h3');
+            expiredTitle.textContent = 'Expired Codes';
+            expiredTitle.style.marginTop = '20px';
+            codeBox.appendChild(expiredTitle);
+            
+            // 添加失效代码
+            currentExpiredCodes.forEach(codeData => {
+                const codeItem = document.createElement('div');
+                codeItem.className = 'code-item expired';
+                codeItem.innerHTML = `
+                    <div class="code-info">
+                        <span class="code-text">${codeData.code}</span>
+                        <span class="reward-tag expired">${codeData.rewards}</span>
+                        <div class="validity-period">
+                            ${codeData.validFrom} - ${codeData.validUntil}
+                        </div>
+                    </div>
+                `;
+                codeBox.appendChild(codeItem);
+            });
+
+            // 更新代码数量显示
+            const activeCount = document.getElementById('active-count');
+            if (activeCount) {
+                activeCount.textContent = `(${currentActiveCodes.length} active)`;
             }
         }
 
@@ -208,11 +400,11 @@
 
     <div class="container">
         <section>
-            <h2>Working Fisch Codes (Updated Today)</h2>
+            <h2>Working Fisch Codes <span id="active-count"></span></h2>
             <p>Below are all active Fisch Codes for 2025. Our team verifies these Fisch Codes daily to ensure they work!</p>
             
             <div class="code-box" id="code-box">
-                <!-- Existing code items will be replaced by JavaScript -->
+                <!-- Codes will be dynamically inserted here -->
             </div>
         </section>
 
